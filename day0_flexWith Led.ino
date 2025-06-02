@@ -37,6 +37,57 @@ void loop() {
 
 
 
+//for 2 led
+
+
+// Flex sensor 1 (connected to ADC-capable pin)
+const int flexPin1 = 34;   // GPIO 34 - input only
+// Flex sensor 2
+const int flexPin2 = 35;   // GPIO 35 - input only
+
+// LEDs
+const int ledPin1 = 23;    // GPIO 23 - output
+const int ledPin2 = 22;    // GPIO 22 - output
+
+// Thresholds (can be calibrated)
+const int flexThreshold1 = 3600;
+const int flexThreshold2 = 3600;
+
+void setup() {
+  Serial.begin(115200);
+
+  // Set LED pins as output
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+}
+
+void loop() {
+  // Read both flex sensors
+  int flexValue1 = analogRead(flexPin1);
+  int flexValue2 = analogRead(flexPin2);
+
+  // Print values to serial monitor
+  Serial.print("Flex1: ");
+  Serial.print(flexValue1);
+  Serial.print(" | Flex2: ");
+  Serial.println(flexValue2);
+
+  // Control LED1
+  if (flexValue1 > flexThreshold1) {
+    digitalWrite(ledPin1, HIGH);
+  } else {
+    digitalWrite(ledPin1, LOW);
+  }
+
+  // Control LED2
+  if (flexValue2 > flexThreshold2) {
+    digitalWrite(ledPin2, HIGH);
+  } else {
+    digitalWrite(ledPin2, LOW);
+  }
+
+  delay(20);  // Small delay
+}
 
 
 
